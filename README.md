@@ -1,5 +1,7 @@
 <h1 align="center">SignalR Chat</h1>
 
-![Parte1] (https://github.com/ApidriuC/SignalR_Chat/blob/master/Captura.PNG)
+# Ingreso de Usuario
+![Parte1](https://github.com/ApidriuC/SignalR_Chat/blob/master/Captura.PNG)
 
-![Parte2] (https://github.com/ApidriuC/SignalR_Chat/blob/master/Captura1.PNG)
+# Chat
+![Parte2](https://github.com/ApidriuC/SignalR_Chat/blob/master/Captura1.PNG)
