@@ -1,0 +1,364 @@
+﻿/*Css de mi página*/
+:root {
+    --colorGris: #212529;
+    --colorBorde: #6c757d;
+    --colorTransparente: rgba(255,255,255,0.1);
+    --colorAzul: #3fa9f5;
+    --colorGrisClaro: rgba(156, 204, 229, 0.3);
+}
+
+#headerPage {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    background-color: var(--colorGris);
+}
+
+#contentMiddle {
+    width: 100%;
+    height: 95%;
+    position: absolute;
+    top: 5%;
+    overflow-x: hidden;
+}
+
+#MiddleLeft {
+    left: 0;
+    position: absolute;
+    transition: all 0.5s;
+}
+
+#MiddleRight {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+.hidePanel {
+    right: -100%;
+}
+
+.showPanel {
+    right: 0;
+}
+
+#contenedor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#lottie {
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+}
+
+#chat {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--colorGris);
+    border-left: 1px solid var(--colorBorde);
+}
+
+.fondoPage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("https://www.syc.com.co/fondos_Proyectos/bg_syc.jpg");
+}
+
+.logoNavLeft {
+    width: 7%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+}
+
+.logoLeft {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 5%;
+}
+
+.lineaNav {
+    width: 40px;
+    position: absolute;
+    height: 75%;
+    left: 55%;
+    top: 15%;
+    border-right: 1px solid var(--colorBorde);
+}
+
+.navBar {
+    border-bottom: 1px solid var(--colorBorde);
+}
+
+.navRight {
+    right: 7.5%;
+    width: 15%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.buttonClass {
+    font-size: 20px;
+    width: 100%;
+    height: 80%;
+    position: absolute;
+    top: 10%;
+    background-color: var(--colorTransparente);
+    color: var(--colorAzul);
+    border-radius: 3px;
+    border: 0;
+    font-family: "open_sanslight";
+}
+
+    .buttonClass:hover {
+        color: white;
+    }
+
+.chatHeader {
+    width: 100%;
+    height: 10%;
+    position: absolute;
+    background-color: var(--colorGrisClaro);
+}
+
+    .chatHeader .text {
+        text-align: center;
+        font-size: 30px;
+        margin-top: 5%;
+        color: #fff;
+        font-family: "open_sanslight";
+    }
+
+.middleR {
+    top: 10%;
+    width: 100%;
+    height: 80%;
+    position: absolute;
+    background-color: var(--colorGris);
+}
+
+.footerR {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    border-top: 1px solid var(--colorBorde);
+}
+
+    .footerR .Input {
+        height: 90%;
+        width: 75%;
+        position: absolute;
+    }
+
+.inputChat {
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    position: absolute;
+    border: 1px solid var(--colorBorde);
+    background-color: var(--colorGris);
+    resize: none;
+    overflow-y: auto;
+    color: white;
+    outline: none;
+}
+
+
+    .inputChat::-webkit-scrollbar {
+        display: none;
+    }
+
+
+
+.footerR .enviar {
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
+.buttonEnviar:hover {
+    color: white;
+}
+
+
+.buttonEnviar {
+    background-color: var(--colorGris);
+    border: 1px solid var(--colorBorde);
+    width: 90%;
+    color: var(--colorAzul);
+    height: 90%;
+    position: absolute;
+    left: 2%;
+    top: 5%;
+}
+
+.contenidoChat {
+    width: 90%;
+    height: 96%;
+    position: absolute;
+    top: 2%;
+    left: 5%;
+    border: 1px solid var(--colorBorde);
+}
+
+.chat {
+    width: 96%;
+    top: 2%;
+    height: 96%;
+    left: 2%;
+    position: absolute;
+    overflow: auto;
+}
+
+#icono {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.125em;
+    fill: currentcolor;
+}
+
+@media screen and (max-width: 970px) {
+    .chatHeader .text {
+        font-size: 25px !important;
+    }
+
+    #MiddleRight {
+        width: 40% !important;
+    }
+
+    .navRight {
+        right: 12.5% !important;
+    }
+
+
+    .logoNavLeft {
+        width: 10% !important;
+    }
+}
+
+@media screen and (max-width: 810px) {
+
+
+    .navRight {
+        right: 18.5% !important;
+    }
+
+    .logoNavLeft {
+        width: 15% !important;
+    }
+
+    #MiddleRight {
+        width: 50% !important;
+    }
+}
+
+@media screen and (max-width: 540px) {
+
+    .logoNavLeft {
+        width: 18% !important;
+    }
+
+    .navRight {
+        right: 40% !important;
+    }
+
+
+
+    #MiddleRight {
+        width: 100% !important;
+        height: 60%;
+        bottom: 0;
+    }
+
+    .chatHeader {
+        height: 15% !important;
+    }
+
+        .chatHeader .text {
+            padding-top: 0 !important;
+        }
+
+    .middleR {
+        top: 15% !important;
+        height: 70% !important;
+    }
+
+    .footerR {
+        height: 15% !important;
+    }
+}
+
+.widthNormal {
+    width: 100%;
+    height: 100%;
+}
+
+.width970 {
+    width: 70%;
+    height: 100%;
+}
+
+.width810 {
+    width: 60%;
+    height: 100%;
+}
+
+.width540 {
+    width: 50%;
+    height: 100%;
+}
+
+.widthMovil {
+    width: 100%;
+    height: 40%;
+}
+
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.message {
+    padding-top: 5px;
+    font-size: 20px;
+    color: white;
+}
+
+.userName {
+    color: var(--colorAzul);
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.chatRoom .content .chatWindow {
+    float: left;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+
+
+.chatRoom .messageBar {
+    border-top: solid 1px gray;
+    padding: 30px;
+}

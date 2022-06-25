@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="Css/Site.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="Css/ChatStyle.css?v=Random()" />
+
+
+    <script src="/Scripts/jquery-1.8.2.min.js"></script>
+
+    <!-- Referencias del SignalR -->
+    <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            setScreen(false);
+
+            // Referencia de nuestra conexión al Hub
+            var chatHub = $.connection.chatHub;
+
+            registerClientMethods(chatHub);
+
+            // Inicializa el Hub al terminar la conexión
+            $.connection.hub.start().done(function () {
+
+                registerEvents(chatHub)
+
+            });
+
+        });
+
+        //Validación ventanas mostradas al cargar la página
+        function setScreen(isLogin) {
+            if (!isLogin) {
+
+                $("#divChat").hide();
+                $("#divLogin").show();
+            }
+            else {
+
+                $("#divChat").show();
+                $("#divLogin").hide();
+            }
+
+        }
+
+        //Conexión
+        function registerEvents(chatHub) {
+            var check = new Boolean(true);
+            while (check) {
+                //Prompt Nombre
+                var name = prompt("Ingresa tu nombre: ");
+                if (name == "" || name == null) {
+                    alert("Aún no has ingresado tu nombre, intentalo de nuevo...");
+                    check = true;
+                }
+                else {
+                    //Si escribe el nombre lo conecta
+                    chatHub.server.connect(name);
+                    break;
+                }
+            }
+
+            //Asignación del mensaje al input y el enviado del mensaje al botón
+            $('#enviarButton').click(function enviar() {
+
+                var msg = $("#inputMessage").val();
+                if (msg.length > 0) {
+
+                    var userName = $('#hdUserName').val();
+                    chatHub.server.sendMessageToAll(userName, msg);
+                    $("#inputMessage").val('');
+                }
+            });
+
+        }
+        //Registro de Usuarios en el Hub
+        function registerClientMethods(chatHub) {
+
+            chatHub.client.onConnected = function (id, userName, allUsers, messages) {
+
+                setScreen(true);
+
+                $('#hdId').val(id);
+                $('#hdUserName').val(userName);
+
+                // Añade a los Usuarios a la lista
+                for (i = 0; i < allUsers.length; i++) {
+
+                    AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
+                }
+
+                // Añade los mensajes a la lista
+                for (i = 0; i < messages.length; i++) {
+
+                    AddMessage(messages[i].UserName, messages[i].Message);
+                }
+
+
+            }
+
+            //Añadir Usuario al Hub
+            chatHub.client.onNewUserConnected = function (id, name) {
+
+                AddUser(chatHub, id, name);
+            }
+            //Añadir Mensaje al Hub
+            chatHub.client.messageReceived = function (userName, message) {
+
+                AddMessage(userName, message);
+            }
+        }
+        //Valida si el usuario envió o recibió y le asigna distintas etiquetas en la ventana
+        //De esta forma añade los usuarios sin que se repitan con el ID en el hub
+        function AddUser(chatHub, id, name) {
+
+            var userId = $('#hdId').val();
+
+            var code = "";
+            //Compara la etiqueta con el ID del hub
+            if (userId == id) {
+
+                code = $('<div class="loginUser">' + name + "</div>");
+            }
+            else {
+                //Si no, toma el id del hub
+                code = $('<a id="' + id + '" class="user" >' + name + '<a>');
+            }
+
+            $("#divusers").append(code);
+
+        }
+        //Enviar el mensaje a la ventana de impresión
+        function AddMessage(userName, message) {
+            $('#divChatWindow').append('<div class="message"><span class="userName">' + userName + ':</span> ' + message + '</div>');
+
+            var height = $('#divChatWindow')[0].scrollHeight;
+            $('#divChatWindow').scrollTop(height);
+        }
+    </script>
+
+</head>
+<body>
+    <div id="headerPage">
+        <nav id="contenedor" class="navBar">
+            <div class="logoNavLeft">
+                <img class="logoLeft" src="Images/userLog_new.svg" />
+                <div class="lineaNav"></div>
+            </div>
+            <div class="navRight">
+                <button id="chatButton" onclick="ocultarModal();" class="buttonClass">Chat</button>
+            </div>
+        </nav>
+    </div>
+    <div id="contentMiddle">
+        <div class="fondoPage"></div>
+
+        <div id="MiddleLeft" class="MiddleLeft widthNormal">
+            <div id="contenedor">
+                <lottie-player id="lottie" src="Images/94789-chat-animation.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+        </div>
+
+        <div id="MiddleRight" class="MiddleRight hidePanel">
+            <div id="contenedor">
+                <div id="chat">
+                    <div class="chatHeader">
+                        <p class="text">SYC PRACTICANTES</p>
+                    </div>
+                    <div class="middleR">
+                        <div class="contenidoChat">
+                            <div class="chat">
+                                <!-- Chat -->
+                                <div class="content">
+                                    <div id="divChatWindow" class="chatWindow">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Guardado del ID y el Nombre para asignación por html -->
+                            <input id="hdId" type="hidden" />
+                            <input id="hdUserName" type="hidden" />
+
+                            <!-- fin chat -->
+                        </div>
+                    </div>
+                </div>
+                <div class="footerR">
+                    <div class="Input">
+                        <textarea id="inputMessage" class="inputChat" placeholder="Escriba su mensaje..."></textarea>
+                    </div>
+                    <div class="enviar">
+                        <button id="enviarButton" class="buttonEnviar">
+                            <svg id="icono" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+                            </svg> <br />
+                            Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div>
+    </div>
+
+    <script src="Scripts/Random.js"></script>
+    <script src="Scripts/Animation.js"></script>
+    <script src="Scripts/OcultarModal.js"></script>
+
+
+</body>
+</html>
