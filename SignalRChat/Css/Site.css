@@ -142,6 +142,7 @@
         margin-top: 5%;
         color: #fff;
         font-family: "open_sanslight";
+        font-weight: bold;
     }
 
 .middleR {
@@ -225,8 +226,21 @@
     height: 96%;
     left: 2%;
     position: absolute;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+    .chat::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+        .chat::-webkit-scrollbar:vertical {
+            width: 5px;
+            height: auto;
+            background-color: #ccc;
+            border: 2px solid #f1f2f3;
+            border-radius: 10px;
+        }
 
 #icono {
     width: 1em;

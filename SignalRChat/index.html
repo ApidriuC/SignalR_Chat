@@ -2,14 +2,16 @@
 <html>
 <head>
     <title></title>
-    <link href="Css/Site.css" rel="stylesheet" type="text/css">
-    <link type="text/css" rel="stylesheet" href="Css/ChatStyle.css?v=Random()" />
+    <!-- Referencia CSS -->
+    <link href="Css/Site.css?v=random()" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="Css/ChatStyle.css" />
 
-
+    <!-- Scripts Jquery versión antigua -->
     <script src="/Scripts/jquery-1.8.2.min.js"></script>
 
     <!-- Referencias del SignalR -->
     <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
+    <!-- Creación del llamado de la biblioteca dinámica -->
     <script src="/signalr/hubs"></script>
 
     <script type="text/javascript">
@@ -63,6 +65,25 @@
                     break;
                 }
             }
+            //Envio del TextArea con la tecla Enter
+            //Cuando el documento esta pintado, escucha
+            $(document).ready(function () {
+                //Escucha la tecla que se va presionar en el Input
+                $('#inputMessage').keydown(function (event) {
+                    //Escucha el evento 13 que es la tecla enter
+                    if (event.which == 13) {
+                        //Realiza el envio si hay un mensaje en el input
+                        var msg = $("#inputMessage").val();
+                        if (msg.length > 0) {
+                            var userName = $('#hdUserName').val();
+                            chatHub.server.sendMessageToAll(userName, msg);
+                            $("#inputMessage").val('');
+                            //Volvemos a la posición inicial el Input
+                            event.preventDefault();
+                        }
+                    }
+                });
+            });
 
             //Asignación del mensaje al input y el enviado del mensaje al botón
             $('#enviarButton').click(function enviar() {
@@ -126,7 +147,7 @@
                 code = $('<div class="loginUser">' + name + "</div>");
             }
             else {
-                //Si no, toma el id del hub
+                //Si la etiqueta del id es diferente al hub, toma el id del hub
                 code = $('<a id="' + id + '" class="user" >' + name + '<a>');
             }
 
@@ -144,6 +165,7 @@
 
 </head>
 <body>
+    <!-- Header de la Pagina -->
     <div id="headerPage">
         <nav id="contenedor" class="navBar">
             <div class="logoNavLeft">
@@ -155,38 +177,40 @@
             </div>
         </nav>
     </div>
+    <!-- Contenedor del Middle -->
     <div id="contentMiddle">
         <div class="fondoPage"></div>
-
+        <!-- Contenedor de la parte izquierda (Animación) -->
         <div id="MiddleLeft" class="MiddleLeft widthNormal">
             <div id="contenedor">
                 <lottie-player id="lottie" src="Images/94789-chat-animation.json" background="transparent" speed="1" loop autoplay></lottie-player>
             </div>
         </div>
-
+        <!-- Contenedor de la parte derecha (Chat Modal) -->
         <div id="MiddleRight" class="MiddleRight hidePanel">
             <div id="contenedor">
                 <div id="chat">
+                    <!-- Header del Chat -->
                     <div class="chatHeader">
                         <p class="text">SYC PRACTICANTES</p>
                     </div>
                     <div class="middleR">
                         <div class="contenidoChat">
+                            <!-- Chat Ventana -->
                             <div class="chat">
-                                <!-- Chat -->
                                 <div class="content">
                                     <div id="divChatWindow" class="chatWindow">
                                     </div>
                                 </div>
                             </div>
-                            <!-- Guardado del ID y el Nombre para asignación por html -->
+                            <!-- Guardado del ID y el Nombre para asignación por html hacia el HUB -->
                             <input id="hdId" type="hidden" />
                             <input id="hdUserName" type="hidden" />
-
-                            <!-- fin chat -->
+                            <!-- Fin ventana del chat -->
                         </div>
                     </div>
                 </div>
+                <!-- Pie del chat (Input y botón de envio) -->
                 <div class="footerR">
                     <div class="Input">
                         <textarea id="inputMessage" class="inputChat" placeholder="Escriba su mensaje..."></textarea>
@@ -206,11 +230,9 @@
     </div>
     <div>
     </div>
-
+    <!-- Scripts Creados para las funciones -->
     <script src="Scripts/Random.js"></script>
     <script src="Scripts/Animation.js"></script>
     <script src="Scripts/OcultarModal.js"></script>
-
-
 </body>
 </html>
