@@ -80,7 +80,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Css\ChatStyle.css" />
     <Content Include="Css\JQueryUI\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Css\JQueryUI\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Css\JQueryUI\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
